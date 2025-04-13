@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planificateur de Rendez-vous</title>
+    <!-- Inclure le fichier CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Inclure jsPDF via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Inclure docx via CDN -->
+    <script src="https://unpkg.com/docx@7.8.2/build/index.js"></script>
+    <!-- Inclure FileSaver.js pour sauvegarder les fichiers -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+  
+        <div class="sidebar">
+            <img src="images/logo-hmoed.png" alt="images/logo-hmoed.png">
+            <h2>Planificateur de Rendez-vous</h2>
+            <form id="appointmentForm">
+                <label for="fullName">Nom et Prénom :</label>
+                <input type="text" id="fullName" required>
+
+                <label for="convention">Convention :</label>
+                <input type="text" id="convention" required>
+
+                <label for="diagnosis">Diagnostic :</label>
+                <input type="text" id="diagnosis" required>
+
+                <label for="doctor">Médecin traitant :</label>
+                <input type="text" id="doctor" required>
+
+                <label for="dateTime">Date et Heure :</label>
+                <input type="datetime-local" id="dateTime" required>
+
+                <label>Répéter les jours :</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" value="Lun"> Lun</label>
+                    <label><input type="checkbox" value="Mar"> Mar</label>
+                    <label><input type="checkbox" value="Mer"> Mer</label>
+                    <label><input type="checkbox" value="Jeu"> Jeu</label>
+                    <label><input type="checkbox" value="Ven"> Ven</label>
+                    <label><input type="checkbox" value="Sam"> Sam</label>
+                    <label><input type="checkbox" value="Dim"> Dim</label>
+                </div>
+
+                <label for="repeatDays">Nombre de répétitions :</label>
+                <input type="number" id="repeatDays" min="1" required>
+
+                <button type="submit">Ajouter Rendez-vous</button>
+            </form>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="calendar-header">
+                <button id="prevMonth">←</button>
+                <h2 id="monthYear"></h2>
+                <button id="nextMonth">→</button>
+            </div>
+            <div class="calendar">
+                <div class="days-header">
+                    <div>Lun</div>
+                    <div>Mar</div>
+                    <div>Mer</div>
+                    <div>Jeu</div>
+                    <div>Ven</div>
+                    <div>Sam</div>
+                    <div>Dim</div>
+                </div>
+                <div id="calendarDays" class="calendar-days"></div>
+            </div>
+
+            <!-- Table for Appointments -->
+            <div class="appointments-table">
+                <h3>Liste des Rendez-vous</h3>
+                <table id="appointmentsTable">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Heure</th>
+                            <th>Nom et Prénom</th>
+                            <th>Convention</th>
+                            <th>Diagnostic</th>
+                            <th>Médecin traitant</th>
+                        </tr>
+                    </thead>
+                    <tbody id="appointmentsTableBody"></tbody>
+                </table>
+                <div class="table-actions">
+                    <button onclick="printAppointments()">Imprimer</button>
+                    <button onclick="exportAppointments()">Exporter CSV</button>
+                    <button onclick="exportToPDF()">Exporter PDF</button>
+                    <button onclick="exportToWord()">Exporter Word</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Inclure le fichier JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
